@@ -34,6 +34,13 @@ Run `python utils/build.py`. The binaries are then going to be stored under `./b
 
 #### Examples:
 
+Build only the files you need to flash via USB thumbdrive, and only for the MINI
+(Note this will only create "boot" file, not "_no_boot", since "_no_boot" is only useful
+for flashing via non-USB. (Note no_boot allows more
+```bash
+```
+
+
 Build the firmware for MINI and XL in `debug` mode:
 
 ```bash

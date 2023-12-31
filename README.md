@@ -53,6 +53,49 @@ Build the firmware for MINI using a custom version of gcc-arm-none-eabi (availab
 python utils/build.py --preset mini --toolchain cmake/AnyGccArmNoneEabi.cmake --generator 'Unix Makefiles'
 ```
 
+## Quick and Dirty Guide to Editing One Line of Code and Flashing Your Board
+
+This uses the `_boot` version, and is flashable using the USB stick.
+This is adequate for small amounts of changes where you do not expect
+to go to the extra trouble and extra memory requirements of a debug build.
+See [LINKME to the doc talking about _boot]
+
+### Git Clone
+
+### Make your edits
+
+### Simplified Compilation
+
+```bash
+python -m venv env
+source env/bin/activate
+BUDDY_NO_VIRTUALENV=1 python utils/build.py \
+    --preset mini \
+    --generate-bbf \
+    --bootloader yes \
+    --version-suffix '+5737-allow-nozzle-preheat-and-zero-bed-temp' \
+    --version-suffix-short '+5737'
+```bash
+
+The goal here is to only generate the files you need.
+You need the `_boot` files, not the `_no_boot` files.
+Here is an explanation of the difference: [LINKME!]
+
+### Break the appendix
+
+See https://help.prusa3d.com/article/zoiw36imrs-flashing-custom-firmware.
+### Flash your Custom Firmware
+See https://help.prusa3d.com/article/zoiw36imrs-flashing-custom-firmware.
+
+### How to Downgrade or Samegrade
+
+Insert the USB stick with your .bbl
+Boot the buddy board.
+Wait one or two seconds, then double-press the knob.
+
+See [LINKME]
+
+
 #### Windows 10 troubleshooting
 
 If you have python installed and in your PATH but still getting cmake error `Python3 not found.` Try running python and python3 from cmd. If one of it opens Microsoft Store instead of either opening python interpreter or complaining `'python3' is not recognized as an internal or external command,
@@ -127,33 +170,6 @@ ctest .
 ```
 
 The simplest way to to debug (step through) a test is to specify CMAKE_BUILD_TYPE when configuring `cmake -DCMAKE_BUILD_TYPE=Debug ..` , build it with `make tests` as previously stated and then run the test with `gdb <path to test binary>` e.g. `gdb tests/unit/configuration_store/eeprom_unit_tests`.
-
-## Quick and Dirty Guide to Editing One Line of Code and Flashing Your Board
-
-This uses the "_boot" version.
-
-### Simplified Compilation
-
-The goal here is to only generate the files you need.
-You need the `_boot` files, not the `_no_boot` files.
-Here is an explanation of the difference: [LINKME!]
-
-### Break the appendix
-
-See https://help.prusa3d.com/article/zoiw36imrs-flashing-custom-firmware.
-### Flash your Custom Firmware
-See https://help.prusa3d.com/article/zoiw36imrs-flashing-custom-firmware.
-
-### How to Downgrade or Samegrade
-
-Insert the USB stick with your .bbl
-Boot the buddy board.
-Wait one or two seconds, then double-press the knob.
-
-(Note this is
-To flash to the same version or to a lower version, pressing restart
-is not sufficient.
-
 
 ## Flashing Custom Firmware
 

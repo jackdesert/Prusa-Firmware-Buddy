@@ -53,6 +53,12 @@ Build the firmware for MINI using a custom version of gcc-arm-none-eabi (availab
 python utils/build.py --preset mini --toolchain cmake/AnyGccArmNoneEabi.cmake --generator 'Unix Makefiles'
 ```
 
+## Docker
+
+Or in Docker:
+
+sudo docker run -it --rm --mount type=bind,source=/home/jd/Prusa-Firmware-Buddy,target=/prusa python:3.10 bash
+
 ## Quick and Dirty Guide to Editing One Line of Code and Flashing Your Board
 
 This uses the `_boot` version, and is flashable using the USB stick.
@@ -63,7 +69,9 @@ See [LINKME to the doc talking about _boot]
 ### Git Clone
 ```bash
 git clone https://github.com/prusa3d/Prusa-Firmware-Buddy
+cd Prusa-Firmware-Buddy
 ```
+
 
 ### Make your edits
 

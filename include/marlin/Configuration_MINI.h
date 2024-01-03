@@ -390,7 +390,7 @@
 #define HEATER_3_MINTEMP 5
 #define HEATER_4_MINTEMP 5
 #define HEATER_5_MINTEMP 5
-#define BED_MINTEMP 0      // Updated by Jack. Note HEATER_0_MINTEMP was left at 10 because the hotend
+#define BED_MINTEMP 1      // Updated by Jack. Note HEATER_0_MINTEMP was left at 10 because the hotend
                            // provides an option to preheat the nozzle before requiring temperature to be
                            // above _MINTEMP
 #define BOARD_MINTEMP 5

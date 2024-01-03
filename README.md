@@ -61,14 +61,26 @@ to go to the extra trouble and extra memory requirements of a debug build.
 See [LINKME to the doc talking about _boot]
 
 ### Git Clone
+```bash
+git clone https://github.com/prusa3d/Prusa-Firmware-Buddy
+```
 
 ### Make your edits
 
 ### Simplified Compilation
 
+The goal here is to only generate the files you need.
+You need the `_boot` files, not the `_no_boot` files.
+Here is an explanation of the difference: [LINKME!]
+
 ```bash
+# Create virtualenv
 python -m venv env
+
+# Activate virtualenv
 source env/bin/activate
+
+# Compile
 BUDDY_NO_VIRTUALENV=1 python utils/build.py \
     --preset mini \
     --generate-bbf \
@@ -77,9 +89,20 @@ BUDDY_NO_VIRTUALENV=1 python utils/build.py \
     --version-suffix-short '+5737'
 ```bash
 
-The goal here is to only generate the files you need.
-You need the `_boot` files, not the `_no_boot` files.
-Here is an explanation of the difference: [LINKME!]
+Notes on arguments:
+- BUDDY_NO_VIRTUALENV: this environment variable tells the build script not to create
+                       a virtualenv (that way it uses the one you created and activated above)
+- --version-suffix: [Optional] You can specify your own version suffix so that after the firmware
+                    is loaded onto your board, the info tab will show you that yours is
+                    installed
+- --version-suffix-short: [Optional] Similar to --version-suffix. Make sure `version_suffix` starts
+                          with whatever value you used for `version_suffix_short`
+
+--bootloader yes: Tells the compiler to only compile the version that is bootable via usb.
+
+--generate-bbf: Tells the compiler to only compile the bbf version
+
+
 
 ### Break the appendix
 

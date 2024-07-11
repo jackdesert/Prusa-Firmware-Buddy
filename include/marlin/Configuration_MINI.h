@@ -384,13 +384,15 @@
 
 // Below this temperature the heater will be switched off
 // because it probably indicates a broken thermistor wire.
-#define HEATER_0_MINTEMP 10
+#define HEATER_0_MINTEMP 10 // Jack assumes this is the hotend
 #define HEATER_1_MINTEMP 5
 #define HEATER_2_MINTEMP 5
 #define HEATER_3_MINTEMP 5
 #define HEATER_4_MINTEMP 5
 #define HEATER_5_MINTEMP 5
-#define BED_MINTEMP 10
+#define BED_MINTEMP 1      // Updated by Jack. Note HEATER_0_MINTEMP was left at 10 because the hotend
+                           // provides an option to preheat the nozzle before requiring temperature to be
+                           // above _MINTEMP
 #define BOARD_MINTEMP 5
 #define CHAMBER_MINTEMP 5
 

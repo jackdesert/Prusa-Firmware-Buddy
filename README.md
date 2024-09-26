@@ -53,6 +53,80 @@ Build the firmware for MINI using a custom version of gcc-arm-none-eabi (availab
 python utils/build.py --preset mini --toolchain cmake/AnyGccArmNoneEabi.cmake --generator 'Unix Makefiles'
 ```
 
+## Docker
+
+Or in Docker:
+
+sudo docker run -it --rm --mount type=bind,source=/home/jd/Prusa-Firmware-Buddy,target=/prusa python:3.10 bash
+
+## Quick and Dirty Guide to Editing One Line of Code and Flashing Your Board
+
+This uses the `_boot` version, and is flashable using the USB stick.
+This is adequate for small amounts of changes where you do not expect
+to go to the extra trouble and extra memory requirements of a debug build.
+See [LINKME to the doc talking about _boot]
+
+### Git Clone
+```bash
+git clone https://github.com/prusa3d/Prusa-Firmware-Buddy
+cd Prusa-Firmware-Buddy
+```
+
+
+### Make your edits
+
+### Simplified Compilation
+
+The goal here is to only generate the files you need.
+You need the `_boot` files, not the `_no_boot` files.
+Here is an explanation of the difference: [LINKME!]
+
+```bash
+# Create virtualenv
+python -m venv env
+
+# Activate virtualenv
+source env/bin/activate
+
+# Compile
+BUDDY_NO_VIRTUALENV=1 python utils/build.py \
+    --preset mini \
+    --generate-bbf \
+    --bootloader yes \
+    --version-suffix '+5737-allow-nozzle-preheat-and-zero-bed-temp' \
+    --version-suffix-short '+5737'
+```bash
+
+Notes on arguments:
+- BUDDY_NO_VIRTUALENV: this environment variable tells the build script not to create
+                       a virtualenv (that way it uses the one you created and activated above)
+- --version-suffix: [Optional] You can specify your own version suffix so that after the firmware
+                    is loaded onto your board, the info tab will show you that yours is
+                    installed
+- --version-suffix-short: [Optional] Similar to --version-suffix. Make sure `version_suffix` starts
+                          with whatever value you used for `version_suffix_short`
+
+--bootloader yes: Tells the compiler to only compile the version that is bootable via usb.
+
+--generate-bbf: Tells the compiler to only compile the bbf version
+
+
+
+### Break the appendix
+
+See https://help.prusa3d.com/article/zoiw36imrs-flashing-custom-firmware.
+### Flash your Custom Firmware
+See https://help.prusa3d.com/article/zoiw36imrs-flashing-custom-firmware.
+
+### How to Downgrade or Samegrade
+
+Insert the USB stick with your .bbl
+Boot the buddy board.
+Wait one or two seconds, then double-press the knob.
+
+See [LINKME]
+
+
 #### Windows 10 troubleshooting
 
 If you have python installed and in your PATH but still getting cmake error `Python3 not found.` Try running python and python3 from cmd. If one of it opens Microsoft Store instead of either opening python interpreter or complaining `'python3' is not recognized as an internal or external command,
